@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: example-1-basic
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: example-1
+    spec:
+      containers:
+      - name: example-1-basic
+        image: ubuntu
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do echo hello world; sleep 1; done"]
