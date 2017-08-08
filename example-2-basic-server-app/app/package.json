@@ -1,0 +1,13 @@
+{
+  "name": "example_2",
+  "version": "0.1.0",
+  "description": "Supporting App for Example 2",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Kapil Sachdeva",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.4",
+    "ip": "^1.1.5"
+  }
+}

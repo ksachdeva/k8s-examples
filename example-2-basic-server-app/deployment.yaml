@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: example-2-basic-server-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: example-2
+    spec:
+      containers:
+      - name: example-2-basic-server-app
+        image: ksachdeva17/k8sexamples_example2:latest
