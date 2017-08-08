@@ -1,10 +1,10 @@
 ### Introduction
 
-This is a very basic example in which we will try to a very basic nodejs application.
+This is a very basic example in which we will try to run a simple nodejs application.
 
 ### Remove pods, deployments etc from the cluster
 
-It will be better to start from the clean cluster. Issue following command to delete various items.
+It will be better to start with a clean cluster. Issue following command to delete various items.
 
 ```bash
 $ kubectl delete pod,svc,rs,deploy --all
@@ -76,7 +76,7 @@ The service we created is of type `LoadBalancer` and with the help of `selector`
 
 Notice `<pending>` in the EXTERNAL-IP column. The Kubernetes implementation of a cloud provider is supposed to create a LoadBalancer when you create a service with type LoadBalancer. You should look in your resource group in Azure and you would see one extra LoadBalancer automatically created.
 
-doing `kubectl get all` after **few minutes** should result in following -
+Doing `kubectl get all` after **few minutes** should result in following -
 
 ```bash
 $ kubectl get all
