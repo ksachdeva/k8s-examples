@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: example-3-db
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: example-3-db
+        tier: db
+    spec:
+      containers:
+      - name: example-3-mongodb
+        image: mongo
+        ports:
+          - containerPort: 27017
+        volumeMounts:
+          - name: mongodisk
+            mountPath: /data/db
+      volumes:
+      - name: mongodisk
+        azureDisk:
+          diskName: mongodisk
+          diskURI: https://00hadbnwnrnqbbyagnt0.blob.core.windows.net/mongodisk/mongo-data-disk.vhd

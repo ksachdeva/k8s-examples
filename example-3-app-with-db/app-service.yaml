@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-3-frontend
+  labels:
+    app: example-3
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  selector:
+    app: example-3-app
+    tier: frontend

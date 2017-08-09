@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: example-3-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: example-3-app
+        tier: frontend
+    spec:
+      containers:
+      - name: example-3-app
+        image: ksachdeva17/k8sexamples_example3:latest
