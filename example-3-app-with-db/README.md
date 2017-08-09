@@ -8,7 +8,7 @@ out of the Pod so that in the case of Pod termination and restart we do not lose
 It will be better to start with a clean cluster. Issue following command to delete various items.
 
 ```bash
-$ kubectl delete pod,svc,rs,deploy --all
+$ kubectl delete deploy,svc,pod,svc,rs, --all
 ```
 
 ### Create a data disk in Azure
@@ -95,6 +95,11 @@ kubectl create -f db-deployment.yaml
 ```
 
 ## Deploy the nodejs application Pod and Service
+
+```bash
+kubectl create -f app-service.yaml
+kubectl create -f app-deployment.yaml
+```
 
 Nothing special going on here in terms of deployment however you should pay attention to how the application would get the URL to the mongodb database.
 

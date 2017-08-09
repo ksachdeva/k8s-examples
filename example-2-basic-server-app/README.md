@@ -7,7 +7,7 @@ This is a very basic example in which we will try to run a simple nodejs applica
 It will be better to start with a clean cluster. Issue following command to delete various items.
 
 ```bash
-$ kubectl delete pod,svc,rs,deploy --all
+$ kubectl delete deploy,svc,pod,svc,rs, --all
 ```
 
 ### Create the deployment
