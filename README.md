@@ -31,3 +31,4 @@ az acs kubernetes get-credentials --resource-group=ksachdeva-exp --name=ksachdev
 
 * [A very basic example](example-1-basic)
 * [A basic server application](example-2-basic-server-app)
+* [A web app with database with a persistent disk](example-3-app-with-db)
