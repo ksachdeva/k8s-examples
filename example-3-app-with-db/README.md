@@ -28,11 +28,11 @@ CreationTime                      Kind     Location        Name                 
 $ az storage container create -n mongodisk --account-name 00hadbnwnrnqbbyagnt0
 ```
 
-At this point of time you have a `container` in your storage account. In this container we need to now update a `data-disk`.
+At this point of time you have a `container` in your storage account. In this container we need to now add a `data-disk`.
 
-Based on what I saw there is no option to instruct Azure to create the data-disk so we have to first create it locally and then upload it. This is not a trivial process but fortunately there are set of scripts written by https://github.com/colemickens/azure-tools to simplify the process. The author of the script has put all these scripts in a docker image as well which is a better way of using these scripts.
+Based on what I saw there is no option to instruct Azure to create the data-disk so we have to first create it locally and then upload it. This is not a trivial process but fortunately there are set of scripts written by https://github.com/colemickens/azure-tools to simplify the process. The author of the script has put all these scripts in a docker image to make the usage simpler.
 
-Before pulling the `azure-tools` docker image make sure to appropriate prepare following environment variables:
+Before pulling the `azure-tools` docker image make sure to prepare following environment variables:
 
 ```bash
 export AZURE_SUBSCRIPTION_ID=<FILL_IT_PLEASE>
@@ -52,7 +52,8 @@ docker pull docker.io/colemickens/azure-tools:latest
 docker run -it docker.io/colemickens/azure-tools:latest
 
 # Once you are inside the container paste the above environment variables
-# in the shell and then issue
+# in the shell and then run the script make-vhd.sh. This scripts creates as well
+# as uploads the data disk.
 
 export AZURE_SUBSCRIPTION_ID=<FILL_IT_PLEASE>
 export AZURE_RESOURCE_GROUP=ksachdeva-exp
@@ -86,7 +87,7 @@ https://00hadbnwnrnqbbyagnt0.blob.core.windows.net/mongodisk/mongo-data-disk.vhd
 Notes:
 
 * Look in the db-deployment.yaml to understand the concept of external mount/volume.
-* We also a Service that fronts the mongodb deployment. Since this service is not to exposed outside we do not specify the `type` for it.
+* We also require a Service that fronts the mongodb deployment. Since this service is not to exposed outside we do not specify the `type` for it.
 
 ```bash
 kubectl create -f db-service.yaml
@@ -97,16 +98,12 @@ kubectl create -f db-deployment.yaml
 
 Nothing special going on here in terms of deployment however you should pay attention to how the application would get the URL to the mongodb database.
 
-In Kubernetes you can use either the environment variables or the DNS. In Auzre, the cluster has the DNS enabled so we are able to simply use name of the DB service i.e `mongo-master`.
+In Kubernetes you can use either the environment variables or the DNS. In Auzre, the cluster has the DNS enabled so we are able to simply use the name of the DB service i.e `mongo-master` in our case.
 
-```javascript
-MongoClient.connect('mongodb://mongo-master:27017/quotes', (err, database) => {
-  if (err)
-    return console.log(err);
+To check if DNS is enabled in your cluster or not, issue following command:
 
-  db = database;
-  app.listen(3000, () => {
-    console.log('listening on 3000')
-  });
-});
+```bash
+$ kubectl get services kube-dns --namespace=kube-system
+NAME       CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
+kube-dns   10.0.0.10    <none>        53/UDP,53/TCP   4h
 ```
